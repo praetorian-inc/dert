@@ -210,6 +210,14 @@ module Dert
       end
     end
 
+    # Validate Output
+    if options[:output]
+      unless Dir.exists?(File.dirname(options[:output]))
+        puts 'Output directory does not exists.'
+        exit
+      end
+    end
+
     # Convert string type to integer type
     case options[:type]
       when 'arin'
