@@ -1,10 +1,20 @@
-path = File.dirname(__FILE__)
+require 'minitest/unit'
+require 'minitest/autorun'
+
 require 'dert'
+require 'yaml'
 
-options = {}
-options[:domain] = 'zonetransfer.me'
-options[:type] = 'axfr'
-options[:output] = 'axfr.txt'
-options[:silent] = true
+class TestAXFR < MiniTest::Unit::TestCase
+  def setup
+    @options = {}
+    @options[:domain] = 'zonetransfer.me'
+    @options[:type] = 'axfr'
+    @options[:silent] = true
+  end
 
-Dert.run(options)
+  def test_equal_results
+    results = Dert.run(@options)
+    check = YAML.load_file('axfr.yml')
+    assert_equal results.to_s, check.to_s
+  end
+end

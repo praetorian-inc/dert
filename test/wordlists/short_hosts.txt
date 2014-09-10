@@ -1,0 +1,9 @@
+www
+mail
+test
+admin
+email
+web
+cpanel
+kloxo
+control
