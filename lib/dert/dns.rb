@@ -116,10 +116,10 @@ module Dert
         thread_container << Thread.new {
           # Check if RVL, else BRT or IPV
           if method == CONSTANTS::RVL
-            ret = []
             # Iterate through IP addresses
+            ret = []
             x.each do |y|
-              ret << self.query(y, method)
+              ret.concat(self.query(y, method))
             end
           else
             # Send a single set of words to brute force
@@ -247,21 +247,6 @@ module Dert
     unless options[:silent]
       puts 'Results:'
       if type == 1
-        if results.is_a? Array
-          results.each do |x|
-            puts "  Range: #{x[:cidr]}"
-            puts "  Handle: #{x[:handle]}"
-            puts "  Customer: #{x[:customer]}"
-            puts "  Zip Code: #{x[:zip]}"
-            puts ''
-          end
-        else
-          puts "  Range: #{results[:cidr]}"
-          puts "  Handle: #{results[:handle]}"
-          puts "  Customer: #{results[:customer]}"
-          puts "  Zip Code: #{results[:zip]}"
-          puts ''
-        end
         results.each do |x|
           puts "  Range: #{x[:cidr]}"
           puts "  Handle: #{x[:handle]}"
@@ -270,18 +255,11 @@ module Dert
           puts ''
         end
       else
-        if results.is_a? Array
-          results.each do |x|
-            puts "  Hostname: #{x[:hostname]}"
-            puts "    IP: #{x[:address]}"
-            puts "    Type: #{x[:type]}"
-          end
-        else
-          puts "  Hostname: #{results[:hostname]}"
-          puts "    IP: #{results[:address]}"
-          puts "    Type: #{results[:type]}"
+        results.each do |x|
+          puts "  Hostname: #{x[:hostname]}"
+          puts "    IP: #{x[:address]}"
+          puts "    Type: #{x[:type]}"
         end
-        
       end
     end
 
