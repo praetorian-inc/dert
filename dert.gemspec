@@ -21,5 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.6'
   spec.add_development_dependency 'rake', '~> 10'
   spec.add_runtime_dependency 'dnsruby', '~> 1'
-  spec.add_runtime_dependency 'rex', '~> 1.0'
+  spec.add_runtime_dependency 'librex', '~> 0'
 end
