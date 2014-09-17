@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = 'dert'
   spec.version       = Dert::VERSION
   spec.authors       = ['Coleton Pierson']
-  spec.email         = ['coleton.pierson@praetorian.com']
+  spec.email         = ['coleton.pierson@gmail.com']
   spec.summary       = %q{DNS Enumeration and Reconnaissance Tool}
   spec.description   = %q{Tool used to enumerate hosts and domains for reconnaissance during a penetration test.}
-  spec.homepage      = 'http://praetorian.com'
+  spec.homepage      = 'https://github.com/coleton/dert'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
