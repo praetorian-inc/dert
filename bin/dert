@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+###########################################################################
+# Author:                                                 Coleton Pierson #
+# Company:                                                     Praetorian #
+# Date:                                                    August 7, 2014 #
+# Project:                 DERT - DNS Enumeration and Reconnaissance Tool #
+# Description:                  Small DNS Recon tool created to integrate #
+#                               into Project Mercury.                     #
+###########################################################################
+path = File.dirname(__FILE__)
+require 'optparse'
+require 'dert'
+
+if __FILE__ == $0
+  options = {}
+
+  optparse = OptionParser.new do|opts|
+
+    # Banner
+    opts.banner = "Usage: #{File.basename($0)} [options]"
+
+    # Options
+    the_break = "\n\t\t\t\t\t"
+    dns_string = ''
+    dns_string = dns_string + the_break + 'ARIN: "arin"'
+    dns_string = dns_string + the_break + 'AXFR: "zonetransfer"'
+    dns_string = dns_string + the_break + 'BRT: "ipv4 bruteforce (A records)"'
+    dns_string = dns_string + the_break + 'IPV6: "ipv6 bruteforce (AAAA records)"'
+    dns_string = dns_string + the_break + 'RVL: "rvl (PRT records)"'
+    dns_string = dns_string + the_break + 'SRV: "srv (SRV records)"'
+    dns_string = dns_string + the_break + 'STD: "std (SOA, A, MX, NS, TXT records)"'
+    dns_string = dns_string + the_break + 'TDL: "tdl (Bruteforce, A records)"'
+    opts.on( '-e enumeration', '--enumeration type', String, 'DNS Enumeration Types:' + dns_string) do |type|
+      options[:type] = type
+    end
+
+    opts.on( '-t thread', '--thread number', Integer, 'Number of threads') do |thread|
+      options[:threads] = thread
+    end
+
+    opts.on( '-d domain', '--domain domain', String, 'Domain to enumerate' ) do |domain|
+      options[:domain] = domain
+    end
+
+    opts.on( '-w wordlist', '--wordlist path', String, 'Wordlist for bruteforce (ipv6 and brt)' ) do |wordlist|
+      options[:wordlist] = wordlist
+    end
+
+    opts.on( '-s', '--silent', 'Do not print any output' ) do
+      options[:silent] = true
+    end
+
+    options[:logfile] = nil
+    opts.on( '-o', '--output file', 'Write output to a file' ) do |file|
+      options[:output] = file
+    end
+
+    # Help
+    opts.on( '-h', '--help', 'Display this screen' ) do
+      puts opts
+      exit
+    end
+  end
+
+  begin
+    optparse.parse!
+    Dert.run(options)
+  rescue => e
+    puts 'Error'
+    puts "Usage: #{File.basename($0)} [options]"
+  end
+
+end
