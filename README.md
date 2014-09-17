@@ -19,9 +19,15 @@ Or install it yourself as:
 ## Usage
 
     require 'dert'
+
+    Dert.run(options)
+
 or
+
     cd bin
+
     chmod +x ./dert
+
     ./dert
 
 ## Contributing
