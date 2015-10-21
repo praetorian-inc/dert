@@ -1,11 +1,22 @@
-path = File.dirname(__FILE__)
+require 'minitest/unit'
+require 'minitest/autorun'
+
 require 'dert'
+require 'yaml'
 
-options = {}
-options[:wordlist] = "#{path}/wordlists/ips.txt"
-options[:type] = 'rvl'
-options[:output] = 'rvl.txt'
-options[:threads] = 1
-options[:silent] = true
+class TestRVL < MiniTest::Unit::TestCase
+  def setup
+    path = File.dirname(__FILE__)
+    @options = {}
+    @options[:type] = 'rvl'
+    @options[:threads] = 1
+    @options[:wordlist] = "#{path}/wordlists/ips.txt"
+    @options[:silent] = true
+  end
 
-Dert.run(options)
+  def test_equal_results
+    results = Dert.run(@options)
+    pp results
+    assert results.to_s
+  end
+end

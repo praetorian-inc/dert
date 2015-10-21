@@ -1,10 +1,21 @@
-path = File.dirname(__FILE__)
+require 'minitest/unit'
+require 'minitest/autorun'
+
 require 'dert'
+require 'yaml'
 
-options = {}
-options[:domain] = 'google.com'
-options[:type] = 'srv'
-options[:output] = 'srv.txt'
-options[:silent] = true
+class TestSRV < MiniTest::Unit::TestCase
+  def setup
+    @options = {}
+    @options[:domain] = 'google.com'
+    @options[:type] = 'srv'
+    @options[:threads] = 1
+    @options[:silent] = true
+  end
 
-Dert.run(options)
+  def test_equal_results
+    results = Dert.run(@options)
+    pp results
+    assert results.to_s
+  end
+end

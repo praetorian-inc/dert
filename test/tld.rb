@@ -4,11 +4,11 @@ require 'minitest/autorun'
 require 'dert'
 require 'yaml'
 
-class TestSTD < MiniTest::Unit::TestCase
+class TestTLD < MiniTest::Unit::TestCase
   def setup
     @options = {}
     @options[:domain] = 'google.com'
-    @options[:type] = 'std'
+    @options[:type] = 'tld'
     @options[:threads] = 1
     @options[:silent] = true
   end
