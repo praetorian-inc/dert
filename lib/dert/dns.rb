@@ -30,7 +30,7 @@ module Dert
     SRV = 6
     STD = 7
     TLD = 8
-    WILDCARD = 9
+    GTLD = 9
   end
 
 
@@ -59,6 +59,8 @@ module Dert
         return STD.query(domain)
       when CONSTANTS::TLD
         return TLD.query(domain)
+      when CONSTANTS::GTLD
+        return GTLD.query(domain)
     end
   end
 
@@ -76,7 +78,7 @@ module Dert
     results = []
 
     # Process for Brute Force DNS Enumeration
-    if method == CONSTANTS::BRT or method == CONSTANTS::IPV6 or method == CONSTANTS::RVL
+    if method == CONSTANTS::BRT or method == CONSTANTS::IPV6 or (method == CONSTANTS::RVL and word_list)
 
       # Count words/ips in list.
       count = File.foreach(word_list).inject(0) { |c, line| c+1 }
@@ -160,24 +162,6 @@ module Dert
   def self.run(options)
     type = 0
 
-    # RVL does not require a domain
-    unless options[:type] == 'rvl'
-      unless options[:domain]
-        puts 'Invalid command. Try --help to view options.'
-        exit
-      end
-
-      # remove http/https
-      options[:domain].gsub!('https://', '')
-      options[:domain].gsub!('http://', '')
-
-      # Validate Domain
-      unless options[:domain].match(/[a-zA-Z0-9\-]+\.[a-zA-z]{2,6}/)
-        puts 'Invalid domain.'
-        exit
-      end
-    end
-
     # Validate settings for brute force
     if %w(ipv6 brt).include? options[:type]
       if options[:threads] == nil or options[:domain] == nil or options[:wordlist] == nil
@@ -186,10 +170,11 @@ module Dert
       end
     end
 
-    # RVL requires threads and a word list
+    # RVL requires domain or a word list
     if options[:type] == 'rvl'
-      if options[:threads] == nil or options[:wordlist] == nil
-        puts "Usage #{File.basename($0)} -e rvl -w <wordlist of ips> -t <threads>"
+      if options[:domain] == nil and options[:wordlist] == nil
+        puts "Usage #{File.basename($0)} -e rvl -d IP"
+        puts "Usage #{File.basename($0)} -e rvl -w IPLIST"
         exit
       end
     end
@@ -208,6 +193,8 @@ module Dert
         puts 'Thread count must be between 1 and 100'
         exit
       end
+    else
+      options[:threads] = 1
     end
 
     # Validate Output
@@ -219,7 +206,7 @@ module Dert
     end
 
     # Convert string type to integer type
-    case options[:type]
+    case options[:type].downcase
       when 'arin'
         type = 1
       when 'axfr'
@@ -236,6 +223,8 @@ module Dert
         type = 7
       when 'tld'
         type = 8
+      when 'gtld'
+        type = 9
       else
         puts 'Wrong enumeration type. Try --help to view accepted enumeration inputs.'
         exit
