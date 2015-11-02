@@ -9,7 +9,7 @@
 ###########################################################################
 path = File.dirname(__FILE__)
 require 'optparse'
-require 'dert'
+require "#{path}/../lib/dert"
 
 if __FILE__ == $0
   options = {}
@@ -31,7 +31,7 @@ if __FILE__ == $0
     dns_string = dns_string + the_break + 'STD: "std (SOA, A, MX, NS, TXT records)"'
     dns_string = dns_string + the_break + 'TDL: "tdl (Bruteforce, A records)"'
     opts.on( '-e enumeration', '--enumeration type', String, 'DNS Enumeration Types:' + dns_string) do |type|
-      options[:type] = type
+      options[:type] = type.downcase
     end
 
     opts.on( '-t thread', '--thread number', Integer, 'Number of threads') do |thread|
@@ -66,7 +66,7 @@ if __FILE__ == $0
     optparse.parse!
     Dert.run(options)
   rescue => e
-    puts 'Error'
+    puts e.message
     puts "Usage: #{File.basename($0)} [options]"
   end
 
