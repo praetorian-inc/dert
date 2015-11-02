@@ -29,7 +29,8 @@ if __FILE__ == $0
     dns_string = dns_string + the_break + 'RVL: "rvl (PRT records)"'
     dns_string = dns_string + the_break + 'SRV: "srv (SRV records)"'
     dns_string = dns_string + the_break + 'STD: "std (SOA, A, MX, NS, TXT records)"'
-    dns_string = dns_string + the_break + 'TDL: "tdl (Bruteforce, A records)"'
+    dns_string = dns_string + the_break + 'TDL: "tdl (Top Level Domain [~250] Bruteforce, A records)"'
+    dns_string = dns_string + the_break + 'TDL: "gtdl (Generic Top Level Domain [~1000] Bruteforce, A records)"'
     opts.on( '-e enumeration', '--enumeration type', String, 'DNS Enumeration Types:' + dns_string) do |type|
       options[:type] = type.downcase
     end

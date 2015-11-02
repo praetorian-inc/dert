@@ -30,7 +30,7 @@ module Dert
     SRV = 6
     STD = 7
     TLD = 8
-    WILDCARD = 9
+    GTLD = 9
   end
 
 
@@ -59,6 +59,8 @@ module Dert
         return STD.query(domain)
       when CONSTANTS::TLD
         return TLD.query(domain)
+      when CONSTANTS::GTLD
+        return GTLD.query(domain)
     end
   end
 
@@ -221,6 +223,8 @@ module Dert
         type = 7
       when 'tld'
         type = 8
+      when 'gtld'
+        type = 9
       else
         puts 'Wrong enumeration type. Try --help to view accepted enumeration inputs.'
         exit
