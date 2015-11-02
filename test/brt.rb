@@ -1,7 +1,8 @@
 require 'minitest/unit'
 require 'minitest/autorun'
 
-require 'dert'
+path = File.dirname(__FILE__)
+require "#{path}/../lib/dert"
 require 'yaml'
 
 class TestBRT < MiniTest::Unit::TestCase

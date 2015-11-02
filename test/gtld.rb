@@ -5,11 +5,12 @@ path = File.dirname(__FILE__)
 require "#{path}/../lib/dert"
 require 'yaml'
 
-class TestArin < MiniTest::Unit::TestCase
+class TestGTLD < MiniTest::Unit::TestCase
   def setup
     @options = {}
     @options[:domain] = 'google.com'
-    @options[:type] = 'arin'
+    @options[:type] = 'gtld'
+    @options[:threads] = 7
     @options[:silent] = true
   end
 
