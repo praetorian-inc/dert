@@ -1,5 +1,7 @@
 # Dert
 
+**Author:** Coleton Pierson (<coleton.pierson@praetorian.com>) -  [LinkedIn](https://www.linkedin.com/in/coletonp) | [Twitter](https://twitter.com/coletonp)
+
 Tool used to enumerate hosts and domains for reconnaissance during a penetration test.
 
 ## Installation
